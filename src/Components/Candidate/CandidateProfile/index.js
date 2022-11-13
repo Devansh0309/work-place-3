@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom'
 
 function CandidateProfile() {
   const [loading,setLoading]=React.useState(true)
+  const [edit,setEdit]=React.useState(false)
   const navigate=useNavigate()
   const userData=JSON.parse(localStorage.getItem('user'))
   const [userInfo,setUserInfo]=React.useState({
@@ -61,13 +62,14 @@ function CandidateProfile() {
   };
 
   const domains=['Frontend','Backend','FullStack','DevOps','QA','Data Scientist','ML','Blockchain']
-  const submitUserInfo=async(e) =>{
+
+  const saveUserInfo=async(e) =>{
     e.preventDefault()
     try {
       await setDoc(doc(db, "userData", userData.uid), {
         ...userInfo,type:'candidate'
       });
-      alert("User details submitted")
+      alert("Candidate details saved successfully!")
       navigate('/candidate/profile')
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -101,7 +103,7 @@ function CandidateProfile() {
     },[])
   return (
     <div>
-      {loading?'Loading...':<form onSubmit={submitUserInfo}>
+      {loading?'Loading...':<form>
       <h1>Candidate Profile</h1>
       <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',backgroundColor:'#fff',
       borderRadius: '5px',
@@ -109,7 +111,7 @@ function CandidateProfile() {
     }}>
         <Grid item xs={12} sm={6}>
           <Typography variant='h6'>Name</Typography>
-          <TextField disabled variant='outlined' required fullWidth
+          <TextField disabled={!edit} variant='outlined' required fullWidth
           value={userInfo.name} onChange={e=>{setUserInfo({...userInfo,name:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -118,17 +120,17 @@ function CandidateProfile() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant='h6'>Phone No</Typography>
-          <TextField type='number' variant='outlined' fullWidth
+          <TextField disabled={!edit}  type='number' variant='outlined' fullWidth
           value={userInfo.phone} onChange={e=>{setUserInfo({...userInfo,phone:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant='h6'>Education</Typography>
-          <TextField variant='outlined' fullWidth
+          <TextField disabled={!edit} variant='outlined' fullWidth
           value={userInfo.education} onChange={e=>{setUserInfo({...userInfo,education:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant='h6'>Experience</Typography>
-          <TextField variant='outlined' fullWidth
+          <TextField disabled={!edit} variant='outlined' fullWidth
           value={userInfo.experience} onChange={e=>{setUserInfo({...userInfo,experience:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -138,6 +140,7 @@ function CandidateProfile() {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               required
+              disabled={!edit}
               value={userInfo.domain}
               onChange={e=>{setUserInfo({...userInfo,domain:e.target.value})}}>
               {domains.map(e=><MenuItem value={e}>{e}</MenuItem>)}
@@ -152,6 +155,7 @@ function CandidateProfile() {
           id="demo-multiple-chip"
           multiple
           required
+          disabled={!edit}
           value={userInfo.skills}
           onChange={handleSkillsChange}
           input={<OutlinedInput id="select-multiple-chip"/>}
@@ -176,12 +180,13 @@ function CandidateProfile() {
       </FormControl>
         </Grid>
         <Grid item xs={12} sm={12}>
-          <Button type='submit'>Submit</Button>
+          {!edit?<Button variant='contained' onClick={()=>setEdit(true)}>Edit</Button>:<div>
+          <Button variant='contained' onClick={(e)=>{setEdit(false);saveUserInfo(e)}}>Save</Button>
+          <Button variant='contained' onClick={()=>setEdit(false)}>Cancel</Button>
+          </div>}
         </Grid>
       </Grid>
     </form>}
-    
-    
     </div>
   )
 }

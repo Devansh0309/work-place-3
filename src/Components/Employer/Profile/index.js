@@ -22,13 +22,13 @@ function EmployerProfile() {
   })
   
   const industry=['Automotive','IT & Software','Construction','Chemical']
-  const submitUserInfo=async(e)=>{
+  const saveUserInfo=async(e)=>{
     e.preventDefault()
     try {
       await setDoc(doc(db, "userData", userData.uid), {
         ...userInfo,type:'employer'
       });
-      alert("User details submitted")
+      alert("Employer details saved successfully!")
       navigate('/employer/profile')
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -62,7 +62,7 @@ function EmployerProfile() {
     },[])
   return (
     <div>
-      {loading?"Loading...":<form onSubmit={submitUserInfo}>
+      {loading?"Loading...":<form>
       <h1>Employer Onboarding</h1>
       <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',backgroundColor:'#fff',
       borderRadius: '5px',
@@ -70,7 +70,7 @@ function EmployerProfile() {
     }}>
         <Grid item xs={12} sm={6}>
           <Typography variant='h6'>Name</Typography>
-          <TextField disabled    variant='outlined' required fullWidth
+          <TextField  disabled={!edit}variant='outlined' required fullWidth
           value={userInfo.name} onChange={e=>{setUserInfo({...userInfo,name:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -121,8 +121,13 @@ function EmployerProfile() {
           <TextField type='email' disabled={!edit}  required variant='outlined' fullWidth
           value={userInfo.hrEmail} onChange={e=>{setUserInfo({...userInfo,hrEmail:e.target.value})}}/>
         </Grid>
+
         <Grid item xs={12} sm={12}>
-          <Button type='submit'>Submit</Button>
+          {!edit?<Button variant='contained' onClick={()=>setEdit(true)}>Edit</Button>:<div>
+          <Button variant='contained' onClick={(e)=>{setEdit(false);saveUserInfo(e)}}>Save</Button>
+          <Button variant='contained' onClick={()=>setEdit(false)}>Cancel</Button>
+          </div>}
+          
         </Grid>
       </Grid>
     </form>}
