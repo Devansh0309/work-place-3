@@ -1,0 +1,30 @@
+.section2-container{
+    width: 100%;
+    margin:10px;
+    text-align: center;
+    background: #F6F7FC;
+}
+.section2-heading{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+}
+.section2-focus{
+    color:#4540DB;
+}
+.section2-subheading{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+}
+.section2-card-container{
+    width:318px;
+    height:158px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px 4px rgb(230, 230, 230),-3px -3px 3px 4px rgb(238, 237, 237);
+}
+.card-top{
+    width:100%;
+    display: flex;
+    gap:3px;
+}

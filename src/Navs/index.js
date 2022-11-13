@@ -34,17 +34,17 @@ import EmployerJobs from "../Components/Employer/Jobs";
 import EmployerConversation from "../Components/Employer/Conversation";
 import Applicants from "../Components/Employer/Applicants";
 function Navs() {
-  const CandidateProtactedRoutes = () => {
+  const CandidateProtectedRoutes = () => {
 
-    if ("a" === "a") {
+    if (("a" === "a")) {
       return <Outlet />;
     } else {
       return <Navigate to="/" />;
     }
   };
 
-  const EmployerProtactedRoutes = () => {
-    if ("a" === "a") {
+  const EmployerProtectedRoutes = () => {
+    if (("a" === "a") ){
       return <Outlet />;
     } else {
       return <Navigate to="/" />;
@@ -55,31 +55,26 @@ function Navs() {
   return (
     <BrowserRouter>
       <Routes>
+        
         <Route path="/" element={<LandingPage />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route element={<CandidateProtactedRoutes />}>
-          <Route
-            path="/candidateOnboarding"
-            element={<CandidateOnboarding />}
-          />
+        <Route path="/candidate/auth" element={<AuthPage type='candidate'/>} />
+        <Route path="/employer/auth" element={<AuthPage type='employer'/>} />
+        <Route element={<CandidateProtectedRoutes />}>
+          <Route path="/candidate/onboarding" element={<CandidateOnboarding />}/>
           <Route path="candidate/profile" element={<CandidateProfile />} />
           <Route path="candidate/jobs" element={<CandidateJobs />} />
-          <Route
-            path="candidate/conversation"
-            element={<CandidateConversation />}
-          />
+          <Route path="candidate/conversation" element={<CandidateConversation />}/>
           <Route path="candidate/application" element={<Applications />} />
         </Route>
-        <Route element={<EmployerProtactedRoutes />}>
+
+        <Route element={<EmployerProtectedRoutes />}>
           <Route path="/employer/onboarding" element={<EmployerOnboarding />} />
           <Route path="employer/profile" element={<EmployerProfile />} />
           <Route path="employer/jobs" element={<EmployerJobs />} />
-          <Route
-            path="employer/conversation"
-            element={<EmployerConversation />}
-          />
+          <Route path="employer/conversation" element={<EmployerConversation />}/>
           <Route path="employer/applicants" element={<Applicants />} />
         </Route>
+
       </Routes>
     </BrowserRouter>
   );

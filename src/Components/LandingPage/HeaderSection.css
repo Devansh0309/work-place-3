@@ -1,0 +1,20 @@
+.header-container{
+    text-align: center;
+    width: 100%;
+}
+.header-heading{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+}
+.header-focus{
+    color:#4540DB;
+}
+.header-subheading{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+}
+.section2-card-list{
+    display: flex;
+}

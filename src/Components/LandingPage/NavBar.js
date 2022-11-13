@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import {Box,Switch} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,19 +8,20 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
+// import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Logo from '../../assets/logo2.png'
 import "./NavBar.css";
-const pages = ["Find a job","find a candidate"];
+const pages = [{label:"Home",path:'/'}, {label:"Find a job",path:'/candidate/auth'},{label:"Find a candidate",path:'/employer/auth'}];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate=useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,12 +37,14 @@ function NavBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const navigateToPage=(path)=>{
+    navigate(path)
+  }
 
   return (
-    <AppBar className="container" position="static">
+    <AppBar className="nav-container" position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -89,8 +93,8 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} onClick={()=>{navigateToPage(page.path)}}>
+                  <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -118,10 +122,10 @@ function NavBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={()=>{navigateToPage(page.path)}}
                 sx={{ my: 2, color: "black", display: "block" }}
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>

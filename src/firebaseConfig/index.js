@@ -1,18 +1,20 @@
-// Import the functions you need from the SDKs you need
+import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    //change these to your own firebase config
-  apiKey: "AIzaSyCvC7OJ7SWpHD0qWlfZ9tfgfNI27PE9hWA",
-  authDomain: "work-place-nov.firebaseapp.com",
-  projectId: "work-place-nov",
-  storageBucket: "work-place-nov.appspot.com",
-  messagingSenderId: "263672880771",
-  appId: "1:263672880771:web:0205563dfd8f52b75645b6"
+  apiKey: "AIzaSyArZAtYb2byIyFqdbIU6AM4wV_yE4b-sBQ",
+  authDomain: "work-place-4ef05.firebaseapp.com",
+  projectId: "work-place-4ef05",
+  storageBucket: "work-place-4ef05.appspot.com",
+  messagingSenderId: "836019516045",
+  appId: "1:836019516045:web:07a655eef0df7cf6fc68c4"
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
