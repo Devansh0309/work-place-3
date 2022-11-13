@@ -63,7 +63,7 @@ function EmployerProfile() {
   return (
     <div>
       {loading?"Loading...":<form>
-      <h1>Employer Onboarding</h1>
+      <h1>Employer Profile</h1>
       <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',backgroundColor:'#fff',
       borderRadius: '5px',
       boxShadow: '3px 2px 5px 3px rgb(211,211,211),-3px -2px 5px 3px rgb(211,211,211)'
