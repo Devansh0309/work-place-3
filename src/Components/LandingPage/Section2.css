@@ -1,6 +1,6 @@
 .section2-container{
     width: 100%;
-    margin:10px;
+    margin:20px;
     text-align: center;
     background: #F6F7FC;
 }
@@ -17,14 +17,40 @@
     font-style: normal;
     font-weight: 400;
 }
+.section2-cards-list{
+    display:flex;
+    flex-wrap: wrap;
+    gap:20px;
+    align-items: center;
+}
 .section2-card-container{
     width:318px;
     height:158px;
     border-radius: 5px;
-    box-shadow: 3px 3px 3px 4px rgb(230, 230, 230),-3px -3px 3px 4px rgb(238, 237, 237);
+    box-shadow: 3px 3px 4px 4px rgb(230, 230, 230),-3px -3px 4px 4px rgb(238, 237, 237);
 }
 .card-top{
     width:100%;
+    margin: 5px;
+    padding:5px;
     display: flex;
     gap:3px;
+    /* align-items: center; */
+    height:70%;
+}
+.card-svg{
+    height:90%;
+    width:30%;
+}
+.card-svg img{
+    height:100%;
+    width:100%;
+}
+.card-heading{
+    height:100%;
+    width:55%;
+}
+.card-bottom{
+    text-align: right;
+    margin:0 10px 10px 10px;
 }

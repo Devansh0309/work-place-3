@@ -60,6 +60,7 @@ function CandidateOnboarding() {
   };
 
   const domains=['Frontend','Backend','FullStack','DevOps','QA','Data Scientist','ML','Blockchain']
+  
   const submitUserInfo=async(e) =>{
     e.preventDefault()
     try {

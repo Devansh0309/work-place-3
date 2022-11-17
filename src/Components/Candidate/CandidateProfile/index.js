@@ -150,7 +150,7 @@ function CandidateProfile() {
         <Grid item xs={12} sm={6}>
           <Typography variant='h6'>Skills</Typography>
           <FormControl sx={{ m: 1, width: 300 }}>
-        <Select
+            <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
@@ -176,8 +176,8 @@ function CandidateProfile() {
               {skill}
             </MenuItem>
           ))}
-        </Select>
-      </FormControl>
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={12}>
           {!edit?<Button variant='contained' onClick={()=>setEdit(true)}>Edit</Button>:<div>

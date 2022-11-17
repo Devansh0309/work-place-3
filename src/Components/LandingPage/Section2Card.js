@@ -1,19 +1,18 @@
-import { type } from '@testing-library/user-event/dist/type'
 import React from 'react'
 
-function Section2Card({icon,job,cardBottom}) {
+function Section2Card({icon,job,jobsAvailable}) {
   return (
     <div className='section2-card-container'>
         <div className='card-top'>
             <div className='card-svg'>
                 <img src={icon} alt="not found"/>
             </div>
-            <div className='card-heading'>
+            <h3 className='card-heading'>
                 {job}
-            </div>
+            </h3>
         </div>
         <div className='card-bottom'>
-            {cardBottom}
+            {jobsAvailable} jobs available
         </div>
     </div>
   )
