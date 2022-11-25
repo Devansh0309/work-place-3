@@ -5,18 +5,9 @@ import { v4 as uuidv4 } from "uuid";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from '../../../../firebaseConfig';
 
-function JobForm(){
+function JobForm({postAjob,jobData,setJobData}){
   const userInfo=JSON.parse(localStorage.getItem('user'))
-  const [jobData,setJobData] = useState({
-    title:'',
-    description:'',
-    location:'',
-    salary:'',
-    experience:'',
-    skills:[],
-    jobType:'',
-    domain:''
-  })
+  
   // const [edit,setEdit]=React.useState(true)
   const skills = [
     'HTML',
@@ -63,12 +54,19 @@ function JobForm(){
   const domains=['Frontend','Backend','FullStack','DevOps','QA','Data Scientist','ML','Blockchain']
 
   const submitJob=async(e)=>{
-    const Job_id=uuidv4()
     e.preventDefault()
+    const Job_id=uuidv4()
     try {
-      await setDoc(doc(db, "jobsData", Job_id), {
-        ...jobData,Job_id:Job_id,employerId:userInfo.uid
-      });
+      if(jobData.Job_id){
+        await setDoc(doc(db, "jobsData", jobData.Job_id), {
+          ...jobData
+        });
+      }
+      else{
+        await setDoc(doc(db, "jobsData", Job_id), {
+          Job_id:Job_id, ...jobData,employerId:userInfo.uid, createdAt:new Date()
+        });
+      }
       alert("Job posted successfully")
       // navigate('/candidate/profile')
     } catch (e) {
@@ -77,7 +75,8 @@ function JobForm(){
   }
   return (
     <div>
-        <Grid container spacing={2}>
+      {postAjob?(<form  onSubmit={(e)=>{submitJob(e)}}>
+      <Grid container spacing={2}>
           <Grid item xs={12} sm={12}>
             <h1>JobForm</h1>
           </Grid>
@@ -85,6 +84,7 @@ function JobForm(){
             <label >Job Title</label>
             <TextField
             value={jobData.title}
+            required
             onChange={e=>setJobData({...jobData,title:e.target.value})}
             fullWidth
             />
@@ -93,6 +93,7 @@ function JobForm(){
             <label>Location</label>
             <TextField
             value={jobData.location}
+            required
             onChange={e=>setJobData({...jobData,location:e.target.value})}
             fullWidth
             />
@@ -101,6 +102,7 @@ function JobForm(){
             <label >Salary</label>
             <TextField
             value={jobData.salary}
+            required
             onChange={e=>setJobData({...jobData,salary:e.target.value})}
             fullWidth
             />
@@ -109,6 +111,7 @@ function JobForm(){
             <label >Experience</label>
             <TextField
             value={jobData.experience}
+            required
             onChange={e=>setJobData({...jobData,experience:e.target.value})}
             fullWidth
             />
@@ -117,6 +120,7 @@ function JobForm(){
             <label >Job Type</label>
             <TextField
             value={jobData.jobType}
+            required
             onChange={e=>setJobData({...jobData,jobType:e.target.value})}
             fullWidth
             />
@@ -125,6 +129,7 @@ function JobForm(){
             <label >Description</label>
             <TextField
             value={jobData.description}
+            required
             multiline
             rows={4}
             onChange={e=>setJobData({...jobData,description:e.target.value})}
@@ -170,8 +175,11 @@ function JobForm(){
               </Select>
             </FormControl>
           </Grid>
-      </Grid>
-      <Button onClick={submitJob} variant='contained' color='primary'>Submit</Button>
+      </Grid><Button type='submit' variant='contained' color='primary'>Submit</Button>
+      </form>):
+      <div>
+        Please select a job
+      </div>}
     </div>
   )
 }

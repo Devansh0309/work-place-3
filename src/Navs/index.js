@@ -33,6 +33,8 @@ import EmployerProfile from "../Components/Employer/Profile";
 import EmployerJobs from "../Components/Employer/Jobs";
 import EmployerConversation from "../Components/Employer/Conversation";
 import Applicants from "../Components/Employer/Applicants";
+import CandidateHoc from "../Components/HOC/CandidateHoc";
+import EmployerHoc from "../Components/HOC/EmployerHoc";
 function Navs() {
   const CandidateProtectedRoutes = () => {
 
@@ -61,18 +63,18 @@ function Navs() {
         <Route path="/employer/auth" element={<AuthPage type='employer'/>} />
         <Route element={<CandidateProtectedRoutes />}>
           <Route path="/candidate/onboarding" element={<CandidateOnboarding />}/>
-          <Route path="candidate/profile" element={<CandidateProfile />} />
-          <Route path="candidate/jobs" element={<CandidateJobs />} />
-          <Route path="candidate/conversation" element={<CandidateConversation />}/>
-          <Route path="candidate/application" element={<Applications />} />
+          <Route path="candidate/profile" element={<CandidateHoc><CandidateProfile /></CandidateHoc>} />
+          <Route path="candidate/jobs" element={<CandidateHoc><CandidateJobs /></CandidateHoc>} />
+          <Route path="candidate/conversation" element={<CandidateHoc><CandidateConversation /></CandidateHoc>}/>
+          <Route path="candidate/application" element={<CandidateHoc><Applications/></CandidateHoc>} />
         </Route>
 
         <Route element={<EmployerProtectedRoutes />}>
           <Route path="/employer/onboarding" element={<EmployerOnboarding />} />
-          <Route path="employer/profile" element={<EmployerProfile />} />
-          <Route path="employer/jobs" element={<EmployerJobs />} />
-          <Route path="employer/conversation" element={<EmployerConversation />}/>
-          <Route path="employer/applicants" element={<Applicants />} />
+          <Route path="employer/profile" element={<EmployerHoc><EmployerProfile /></EmployerHoc>} />
+          <Route path="employer/jobs" element={<EmployerHoc><EmployerJobs /></EmployerHoc>} />
+          <Route path="employer/conversation" element={<EmployerHoc><EmployerConversation /></EmployerHoc>}/>
+          <Route path="employer/applicants" element={<EmployerHoc><Applicants /></EmployerHoc>} />
         </Route>
 
       </Routes>
