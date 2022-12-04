@@ -1,0 +1,88 @@
+.section3-container{
+    width: 100%;
+    margin:20px;
+    text-align: center;
+    margin-top: 100px;
+}
+.section3-heading{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+}
+.section3-focus{
+    color:#4540DB;
+}
+.section3-subheading{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+}
+.section3-cards-list{
+    display:flex;
+    flex-wrap: wrap;
+    gap:40px;
+    align-items: center;
+}
+.section3-card-container{
+    width:268px;
+    max-height:500px;
+    border-radius: 5px;
+    z-index:  5;
+    box-shadow:3px 3px 4px 4px rgb(230, 230, 230),-3px -3px 4px 4px rgb(238, 237, 237);
+    padding:10px;
+}
+.section3-card-top{
+    width:100%;
+    margin: 5px;
+    padding:10px;
+    display: flex;
+    gap:3px;
+    align-items: center;
+    height:20%;
+}
+.section3-card-svg{
+    height:100%;
+    width:30%;
+}
+.section3-card-svg img{
+    height:100%;
+    width:100%;
+    border-radius: 50%;
+}
+.section3-card-heading{
+    height:100%;
+    width:65%;
+}
+.section3-card-middle{
+    height:60%;
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.section3-card-bottom{
+    height:20%;
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    text-align: right;
+    /* margin:0 10px 0px 0px; */
+    padding:10px;
+}
+.section3-card-bottom button{
+    color:white;
+    background-color: rgb(67, 80, 123);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 3px 2px 5px 3px lightgrey,-3px -2px 5px 3px lightgrey;
+    cursor: pointer;
+}
+.section3-card-bottom button:hover{
+    background-color: rgb(38, 78, 211);
+    transition: 0.03s ease-in;
+}
+.section3-card-bottom button:active{
+    background-color: rgb(18, 61, 202);
+    transition: 0.03s ease-in-out;
+    font-size: medium;
+}

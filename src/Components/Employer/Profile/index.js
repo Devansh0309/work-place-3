@@ -1,11 +1,13 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useContext } from 'react'
 import { Grid, TextField,Typography,Button,FormControl,Select,MenuItem} from '@mui/material'
 import { getDoc, setDoc, doc } from "firebase/firestore";
 import { db } from '../../../firebaseConfig';
 import {useNavigate} from 'react-router-dom'
+import { ColorContext } from '../../../Context/DarkMode';
 
 function EmployerProfile() {
   const navigate=useNavigate()
+  const [state,dispatch]=useContext(ColorContext)
   const [edit,setEdit]=React.useState(false)
   const [loading,setLoading]=React.useState(true)
   const userData=JSON.parse(localStorage.getItem('user'))
@@ -64,7 +66,7 @@ function EmployerProfile() {
     <div>
       {loading?"Loading...":<form>
       <h1>Employer Profile</h1>
-      <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',backgroundColor:'#fff',
+      <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',color:state.darkMode?'#F6F7FC !important':'black !important',backgroundColor:state.darkMode?'dimgray !important':'#F6F7FC !important',
       borderRadius: '5px',
       boxShadow: '3px 2px 5px 3px rgb(211,211,211),-3px -2px 5px 3px rgb(211,211,211)'
     }}>

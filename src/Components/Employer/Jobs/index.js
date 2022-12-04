@@ -48,10 +48,10 @@ function Jobs(){
         sx={{display:{xs:mobileSidebar?'none':'block',sm:'block'}}}>
           <Button onClick={()=>setMobileSidebar(true)} sx={{display:{xs:'block',sm:'none'}}}>Back</Button>
           <JobForm postAjob={postAjob} jobData={jobData} setJobData={setJobData}/>
-          
         </Grid>
       </Grid>
     </div>
   )
 }
+
 export default Jobs

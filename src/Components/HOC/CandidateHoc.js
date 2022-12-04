@@ -1,6 +1,5 @@
-// import React from 'react'
-
 import * as React from 'react';
+import {useContext} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,20 +11,29 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
+import { Switch } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import WorkIcon from '@mui/icons-material/Work';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import { useNavigate } from "react-router-dom";
+import { auth } from '../../firebaseConfig';
+import { ColorContext } from '../../Context/DarkMode';
+import Logo from '../../assets/logo2.png'
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [{label:'Profile',key:'profile',icon:<AccountBoxIcon/>},{label:'Jobs',key:'jobs',icon:<WorkIcon/>},{label:'Conversation',key:'conversation',icon:<QuestionAnswerIcon/>},{label:'Applications',key:'application',icon:<PeopleAltIcon/>}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
 
 function CandidateHoc({children}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate=useNavigate()
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,16 +49,27 @@ function CandidateHoc({children}) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  
+  const reRoute=(page)=>{
+    handleCloseNavMenu()
+    navigate(`/candidate/${page}`)
+  }
 
   const [value, setValue] = React.useState(0);
 
+  const [state,dispatch]=useContext(ColorContext)
+
+  const Logout=()=>{
+    localStorage.clear();
+    auth.signOut()
+    navigate('/')
+  }
   return (
     <>
     <Box sx={{display:{xs:'none',md:'block'}}}>
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{backgroundColor:state.darkMode?'dimgrey !important':'#fff !important',}}>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -62,11 +81,11 @@ function CandidateHoc({children}) {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: state.darkMode?'white !important':'black !important',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <img src={Logo} alt="logo" style={{width:"100px"}}/>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -99,13 +118,12 @@ function CandidateHoc({children}) {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.key} onClick={()=>{reRoute(page.key)}}>
+                  <Typography textAlign="center" sx={{color:state.darkMode?'white !important':'black !important'}}>{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -118,31 +136,34 @@ function CandidateHoc({children}) {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: state.darkMode?'white !important':'black !important',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <img src={Logo} alt="logo" style={{width:"100px"}}/>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                key={page.key}
+                onClick={()=>{reRoute(page.key)}}
+                sx={{ my: 2, color: state.darkMode?'white !important':'black !important', display: 'block'  }}
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
+          <Box sx={{ flexGrow: 0, display:'flex' }}>
+            <Tooltip title="logout">
+            <Button onClick={()=>{Logout()}} style={{color:state.darkMode?'white !important':'black !important', display: 'block' }} contained>Logout</Button>
             </Tooltip>
-            <Menu
+            <Tooltip title={state.darkMode?'Dark Mode On':'Dark Mode Off'}>
+            <Switch  checked={state.darkModeOn} onChange={()=>{
+              dispatch({type: state.darkMode?'Light':'Dark'})
+            }}/>
+            </Tooltip>
+            {/* <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -163,13 +184,13 @@ function CandidateHoc({children}) {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
     </Box>
-    <Box sx={{ width: '100%', display:{xs:'block',md:'none'},position:'fixed',backgroundColor:'white',zIndex:'2',bottom:'0'}}>
+    <Box sx={{ width: '100%', display:{xs:'block',md:'none'},position:'fixed',backgroundColor:'#fff !important',zIndex:'2',bottom:'0'}}>
     <Box>
       <BottomNavigation
         showLabels
@@ -178,9 +199,10 @@ function CandidateHoc({children}) {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        {pages.map((page)=>{
+          console.log(page.icon)
+          return <BottomNavigationAction label={page.label} key={page.key} icon={page.icon} onClick={()=>{reRoute(page.key)}} sx={{color:'black !important'}}/>
+        })}
       </BottomNavigation>
     </Box>
     </Box>

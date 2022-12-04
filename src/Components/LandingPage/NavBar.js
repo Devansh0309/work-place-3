@@ -15,6 +15,9 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Logo from '../../assets/logo2.png'
 import "./NavBar.css";
+import { ColorContext } from "../../Context/DarkMode";
+import { useContext } from "react";
+
 const pages = [{label:"Home",path:'/'}, {label:"Find a job",path:'/candidate/auth'},{label:"Find a candidate",path:'/employer/auth'}];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -40,9 +43,11 @@ function NavBar() {
   const navigateToPage=(path)=>{
     navigate(path)
   }
-
+  console.log(ColorContext)
+  const [state,dispatch]=useContext(ColorContext)
+  
   return (
-    <AppBar className="nav-container" position="static">
+    <AppBar className="nav-container" position="static" sx={{color:state.darkMode?'white !important':'black !important',backgroundColor:state.darkMode?'dimgrey !important':'#fff !important'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -58,12 +63,13 @@ function NavBar() {
               letterSpacing: ".3rem",
             
               textDecoration: "none",
+              color:state.darkMode?'white !important':'black !important'
             }}
           >
             <img src={Logo} alt="logo" style={{width:"100px"}}/>
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, color:state.darkMode?'white !important':'black !important'}}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -89,17 +95,16 @@ function NavBar() {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: "block", md: "none" },color:state.darkMode?'white !important':'black !important'
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={()=>{navigateToPage(page.path)}}>
-                  <Typography textAlign="center">{page.label}</Typography>
+                <MenuItem key={page.label} onClick={()=>{navigateToPage(page.path)}} sx={{color:state.darkMode?'white !important':'black !important',backgroundColor:state.darkMode?'dimgrey !important':'#fff !important'}}>
+                  <Typography textAlign="center"  sx={{color:state.darkMode?'white !important':'black !important',backgroundColor:state.darkMode?'dimgrey !important':'#fff !important'}}>{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -112,7 +117,7 @@ function NavBar() {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-            
+              color:state.darkMode?'white !important':'black !important',
               textDecoration: "none",
             }}
           >
@@ -121,18 +126,22 @@ function NavBar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.label}
                 onClick={()=>{navigateToPage(page.path)}}
-                sx={{ my: 2, color: "black", display: "block" }}
+                sx={{ my: 2, color:state.darkMode?'white !important':'black !important', display: "block", }}
               >
                 {page.label}
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-            <Switch  defaultChecked />
+          <Box sx={{ flexGrow: 0 , display:'flex' }}>
+            <Tooltip title={state.darkMode?'Dark Mode On':'Dark Mode Off'}>
+            <Switch checked={state.darkMode} onChange={()=>{
+              dispatch({type: state.darkMode?'Light':'Dark'})
+              // setDarkMode(prev=>!prev);
+              // console.log(state.darkMode)
+            }}/>
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}

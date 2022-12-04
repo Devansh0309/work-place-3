@@ -32,7 +32,7 @@ function CandidateJobs() {
     e.preventDefault()
     // e.target.disabled=true
     const applicationId=uuidv4()
-    // console.log(job)
+    console.log(job)
     //fetch the applications with candidate id
     //if job id is present in the applications then show alert: already applied
     //else apply for the job
@@ -58,7 +58,12 @@ function CandidateJobs() {
           title:job.title,
           location:job.location,
           createdAt:new Date(),
-          candidateId:candidateId
+          candidateId:candidateId,
+          status:'applied',
+          candidateName:userInfo.displayName,
+          companyName:job.employerName,
+          candidateEmail:userInfo.email,
+          // candidateExperience:userInfo.experience
         });
       alert("Applied for job successfully")
       

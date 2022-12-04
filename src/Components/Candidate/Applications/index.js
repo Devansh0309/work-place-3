@@ -1,7 +1,17 @@
 import React, { useEffect,useState } from 'react'
 import { collection, query, where, onSnapshot, setDoc, doc, getDoc, getDocs} from "firebase/firestore";
 import {db} from '../../../firebaseConfig';
+import CommonTable from '../../common/CommonTable';
 
+const columnName=[
+  {title:'Company',key:'companyName'},
+  {title:'Job title', key:'title'},
+  {title:'Job location',key:'location'},
+  {title:'status',key:'status'},
+  {title:'Name',key:'candidateName'}
+  
+  // {title:'applied on',key:'createdAt'}
+]
 function Applications() {
   const userInfo=JSON.parse(localStorage.getItem('user'))
   const candidateId=userInfo.uid
@@ -25,7 +35,7 @@ function Applications() {
        {/* {allApplications.map((application)=>{
          application.title
       })} */}
-      data
+      <CommonTable data={allApplications} columnsName={columnName} type={'candidate'}/>
       </div>:
       allApplications && allApplications.length===0?
        <div>

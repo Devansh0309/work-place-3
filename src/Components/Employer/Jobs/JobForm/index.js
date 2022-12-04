@@ -64,7 +64,7 @@ function JobForm({postAjob,jobData,setJobData}){
       }
       else{
         await setDoc(doc(db, "jobsData", Job_id), {
-          Job_id:Job_id, ...jobData,employerId:userInfo.uid, createdAt:new Date()
+          Job_id:Job_id, ...jobData,employerId:userInfo.uid, createdAt:new Date(),employerName:userInfo.displayName
         });
       }
       alert("Job posted successfully")

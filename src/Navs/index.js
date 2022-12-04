@@ -20,7 +20,7 @@ import {
   Outlet,
   Navigate,
 } from "react-router-dom";
-import React from "react";
+import React,{useContext} from "react";
 import LandingPage from "../Components/LandingPage";
 import AuthPage from "../Components/AuthPage";
 import CandidateOnboarding from "../Components/Candidate/CandidateOnboarding";
@@ -35,24 +35,32 @@ import EmployerConversation from "../Components/Employer/Conversation";
 import Applicants from "../Components/Employer/Applicants";
 import CandidateHoc from "../Components/HOC/CandidateHoc";
 import EmployerHoc from "../Components/HOC/EmployerHoc";
-function Navs() {
-  const CandidateProtectedRoutes = () => {
+import { UserContext } from "../Context/UserContext";
 
-    if (("a" === "a")) {
+function Navs() {
+  const [state,]=useContext(UserContext)
+
+  const CandidateProtectedRoutes = () => {
+    
+    // ("a" === "a")
+    if (state.userInfo && state.userInfo.type==='candidate') {
+      console.log('hi')
       return <Outlet />;
     } else {
+      console.log('ni')
       return <Navigate to="/" />;
     }
   };
 
   const EmployerProtectedRoutes = () => {
-    if (("a" === "a") ){
+    if (state.userInfo && state.userInfo.type==='employer'){
+      console.log('hi')
       return <Outlet />;
     } else {
+      console.log('ni')
       return <Navigate to="/" />;
     }
   }
-
 
   return (
     <BrowserRouter>
