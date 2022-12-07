@@ -104,10 +104,11 @@ function CandidateProfile() {
     fetchUserInfo()
     },[])
   return (
-    <div>
+    <div style={{color:state.darkMode?'white':
+    'black' ,backgroundColor:state.darkMode?'darkgray':'#F2F2F2',margin:'0'}}>
       {loading?'Loading...':<form>
-      <h1>Candidate Profile</h1>
-      <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',backgroundColor:state.darkMode?'dimgray !important':'#F6F7FC !important',
+      <h1 style={{padding:'10px',margin:'0'}}>Candidate Profile</h1>
+      <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',backgroundColor:state.darkMode?'gray':'#F6F7FC',
       borderRadius: '5px',
       boxShadow: '3px 2px 5px 3px rgb(211,211,211),-3px -2px 5px 3px rgb(211,211,211)'
     }}>
@@ -182,9 +183,10 @@ function CandidateProfile() {
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={12}>
-          {!edit?<Button variant='contained' onClick={()=>setEdit(true)}>Edit</Button>:<div>
-          <Button variant='contained' onClick={(e)=>{setEdit(false);saveUserInfo(e)}}>Save</Button>
-          <Button variant='contained' onClick={()=>setEdit(false)}>Cancel</Button>
+          {!edit?<Button variant='contained' onClick={()=>setEdit(true)}>Edit</Button>:
+          <div style={{"display":"flex","justifyContent":"center","gap":"20px"}}>
+            <Button variant='contained' onClick={(e)=>{setEdit(false);saveUserInfo(e)}}>Save</Button>
+            <Button variant='contained' onClick={()=>setEdit(false)}>Cancel</Button>
           </div>}
         </Grid>
       </Grid>

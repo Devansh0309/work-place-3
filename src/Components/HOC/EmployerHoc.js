@@ -67,7 +67,7 @@ function EmployerHoc({children}) {
     <>
     <Box sx={{display:{xs:'none',md:'block'},}}>
     <AppBar position="static">
-      <Container maxWidth="xl"  sx={{backgroundColor:state.darkMode?'dimgrey !important':'#fff !important',}}>
+      <Container maxWidth="xl"  sx={{backgroundColor:state.darkMode?'dimgrey':'#fff',}}>
         <Toolbar disableGutters>
           <Typography
             variant="h6"
@@ -80,7 +80,7 @@ function EmployerHoc({children}) {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color:state.darkMode?'white !important':'black !important',
+              color:state.darkMode?'white':'black',
               textDecoration: 'none',
             }}
           >
@@ -118,7 +118,7 @@ function EmployerHoc({children}) {
             >
               {pages.map((page) => (
                 <MenuItem key={page.key} onClick={()=>{reRoute(page.key)}}>
-                  <Typography textAlign="center" sx={{color:state.darkMode?'white !important':'black !important',}}>{page.label}</Typography>
+                  <Typography textAlign="center" sx={{color:state.darkMode?'white':'black',}}>{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -135,7 +135,7 @@ function EmployerHoc({children}) {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color:state.darkMode?'white !important':'black !important',
+              color:state.darkMode?'white':'black',
               textDecoration: 'none',
             }}
           >
@@ -146,7 +146,7 @@ function EmployerHoc({children}) {
               <Button
                 key={page.key}
                 onClick={()=>{reRoute(page.key)}}
-                sx={{ my: 2, color:state.darkMode?'white !important':'black !important', display: 'block' }}
+                sx={{ my: 2, color:state.darkMode?'white':'black', display: 'block' }}
               >
                 {page.label}
               </Button>
@@ -155,41 +155,19 @@ function EmployerHoc({children}) {
 
           <Box sx={{ flexGrow: 0, display:'flex' }}>
             <Tooltip title="logout">
-              <Button onClick={()=>{Logout()}} sx={{ color:state.darkMode?'white !important':'black !important', display: 'block' }} contained >Logout</Button>
+              <Button onClick={()=>{Logout()}} sx={{ color:state.darkMode?'white':'black', display: 'block' }} contained >Logout</Button>
             </Tooltip>
             <Tooltip title={state.darkMode?'Dark Mode On':'Dark Mode Off'}>
               <Switch checked={state.darkMode} onChange={()=>{
               dispatch({type: state.darkMode?'Light':'Dark'})
             }}/>
             </Tooltip>
-            {/* <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
     </Box>
-    <Box sx={{ width: '100%', display:{xs:'block',md:'none'},position:'fixed',backgroundColor:'#fff !important',zIndex:'2',bottom:'0'}}>
+    <Box sx={{ width: '100%', display:{xs:'block',md:'none'},position:'fixed',backgroundColor:'#fff',zIndex:'2',bottom:'0'}}>
     <Box>
       <BottomNavigation
         showLabels
@@ -200,7 +178,7 @@ function EmployerHoc({children}) {
       >
         {pages.map((page)=>{
           console.log(page.icon)
-          return <BottomNavigationAction label={page.label} key={page.key} icon={page.icon} onClick={()=>{reRoute(page.key)}} sx={{color:'black !important'}}/>
+          return <BottomNavigationAction label={page.label} key={page.key} icon={page.icon} onClick={()=>{reRoute(page.key)}} sx={{color:'black'}}/>
         })}
       </BottomNavigation>
     </Box>

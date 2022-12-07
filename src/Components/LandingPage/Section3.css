@@ -1,6 +1,6 @@
 .section3-container{
     width: 100%;
-    margin:20px;
+    margin:15px;
     text-align: center;
     margin-top: 100px;
 }
@@ -22,11 +22,13 @@
     flex-wrap: wrap;
     gap:40px;
     align-items: center;
+    margin:auto;
+    /* justify-content: center; */
 }
 .section3-card-container{
     width:268px;
     max-height:500px;
-    border-radius: 5px;
+    border-radius: 15px;
     z-index:  5;
     box-shadow:3px 3px 4px 4px rgb(230, 230, 230),-3px -3px 4px 4px rgb(238, 237, 237);
     padding:10px;

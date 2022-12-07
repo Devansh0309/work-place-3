@@ -13,11 +13,11 @@ function Section2() {
   const [state,dispatch]=useContext(ColorContext)
   return (
     <div className='section2-container' 
-    style={{color:state.darkMode?'white !important':'black !important',backgroundColor:state.darkMode?'dimgrey !important':'#F6F7FC !important'}}
+    style={{color:state.darkMode?'white':'black',backgroundColor:state.darkMode?'darkgrey':'#F6F7FC'}}
     >
       <h1 className='section2-heading'>One Platform Many <span className='section2-focus'>Solutions</span></h1>
       <div className='section2-cards-list' 
-      style={{color:state.darkMode?'white !important':'black !important',backgroundColor:state.darkMode?'grey !important':'#fff !important'}}
+      style={{color:state.darkMode?'white':'black'}}
       >
         {Section2Cards.map(ele=>
           <Section2Card icon={ele.image} job={ele.job} jobsAvailable={ele.jobsAvailable} key={ele.key}/>

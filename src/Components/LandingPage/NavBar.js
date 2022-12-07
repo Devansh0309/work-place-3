@@ -47,8 +47,9 @@ function NavBar() {
   const [state,dispatch]=useContext(ColorContext)
   
   return (
-    <AppBar className="nav-container" position="static" sx={{color:state.darkMode?'white !important':'black !important',backgroundColor:state.darkMode?'dimgrey !important':'#fff !important'}}>
-      <Container maxWidth="xl">
+    <AppBar className="nav-container" position="static">
+      <Container maxWidth="xl" sx={{color:state.darkMode?'#fff':'black',
+    backgroundColor:state.darkMode?'dimgrey':'#fff'}}>
         <Toolbar disableGutters>
           <Typography
             variant="h6"
@@ -63,13 +64,15 @@ function NavBar() {
               letterSpacing: ".3rem",
             
               textDecoration: "none",
-              color:state.darkMode?'white !important':'black !important'
+              color:state.darkMode?'white':'black'
             }}
           >
             <img src={Logo} alt="logo" style={{width:"100px"}}/>
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, color:state.darkMode?'white !important':'black !important'}}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, 
+          color:state.darkMode?'white':'black'
+          }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -95,12 +98,13 @@ function NavBar() {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },color:state.darkMode?'white !important':'black !important'
+                display: { xs: "block", md: "none" },
+                color:state.darkMode?'white':'black'
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.label} onClick={()=>{navigateToPage(page.path)}} sx={{color:state.darkMode?'white !important':'black !important',backgroundColor:state.darkMode?'dimgrey !important':'#fff !important'}}>
-                  <Typography textAlign="center"  sx={{color:state.darkMode?'white !important':'black !important',backgroundColor:state.darkMode?'dimgrey !important':'#fff !important'}}>{page.label}</Typography>
+                <MenuItem key={page.label} onClick={()=>{navigateToPage(page.path)}} sx={{color:state.darkMode?'white':'black',backgroundColor:state.darkMode?'dimgrey':'#fff'}}>
+                  <Typography textAlign="center"  sx={{color:state.darkMode?'white':'black',backgroundColor:state.darkMode?'dimgrey':'#fff'}}>{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -117,7 +121,7 @@ function NavBar() {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color:state.darkMode?'white !important':'black !important',
+              color:state.darkMode?'white':'black',
               textDecoration: "none",
             }}
           >
@@ -128,7 +132,7 @@ function NavBar() {
               <Button
                 key={page.label}
                 onClick={()=>{navigateToPage(page.path)}}
-                sx={{ my: 2, color:state.darkMode?'white !important':'black !important', display: "block", }}
+                sx={{ my: 2, color:state.darkMode?'white':'black', display: "block", }}
               >
                 {page.label}
               </Button>

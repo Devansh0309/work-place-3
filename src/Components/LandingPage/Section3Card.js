@@ -5,7 +5,7 @@ function Section3Card({key,icon,job,company,jobDescription,salary,time}) {
     const [state,dispatch]=useContext(ColorContext)
   return (
     <div className='section3-card-container'
-     style={{backgroundColor:(state.darkMode?'dimgrey !important':'#fff !important')}}
+     style={{backgroundColor:(state.darkMode?'dimgrey':'#fff')}}
      >
         <div className='section3-card-top'>
             <div className='section3-card-svg'>

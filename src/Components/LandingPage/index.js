@@ -12,7 +12,8 @@ function LandingPage() {
   const [state,]=useContext(ColorContext)
   return (
     <div
-    style={{color:state.darkMode?'white':'black',backgroundColor:state.darkMode?'grey':'white'}}
+    style={{color:state.darkMode?'white':'black',backgroundColor:state.darkMode?'grey':'white'
+    }}
     >
       <HeaderSection/>
       <Section2/>

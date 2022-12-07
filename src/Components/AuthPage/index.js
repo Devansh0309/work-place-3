@@ -69,7 +69,7 @@ function AuthPage({type}) {
       <br/><br/>
       <button type="button" onClick={signIn}>
         <img src="https://shortcuts-france.fr/wp-content/uploads/2021/04/google-logo-carre-2015-09-400.png" alt=""/>
-        <h2>Sign in</h2> 
+        <h2>Sign in</h2>
       </button>
     </div>
   )
