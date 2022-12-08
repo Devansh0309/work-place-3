@@ -31,34 +31,37 @@ function AuthPage({type}) {
     //   console.log("No such document!");
     // }
     
-    const userType=docSnap.data().type
-
-    if(userType && userType===type){
+    const userData=docSnap.data()
+    console.log(type+''+userData)
+    if(userData && userData.type===type){
       // localStorage.setItem('userInfo',JSON.stringify(docSnap.data()))
-      dispatch({type:'SET_USER_INFO',payload:docSnap.data()})
+      dispatch({type:'SET_USER_INFO',payload:userData})
       //profile
-      setTimeout(()=>{navigate(`/${type}/profile`)},1000)
-      // navigate(`/${type}/profile`)
+      // setTimeout(()=>{navigate(`/${type}/profile`)},1000)
+      navigate(`/${type}/profile`)
     }
-    else if(userType && userType!==type){
+    else if(userData && userData.type!==type){
       //invalid access  or invalid type user accessing
-      alert(`Invalid access as you are trying to signIn as ${type} but you onboarded as ${userType} using this email`)
+      alert(`Invalid access as you are trying to signIn as ${type} but you onboarded as ${userData.type} using this email`)
     }
     else{
+      
       //onBoarding
-      setTimeout(()=>{navigate(`/${type}/onboarding`)},1000)
+      console.log(type+''+userData)
+      setTimeout(()=>{navigate(`/${type}/onboarding`)},2000)
       // navigate(`/${type}/onboarding`)
     }
     // ...
   }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
+    // // Handle Errors here.
+    // const errorCode = error.code;
+    // const errorMessage = error.message;
+    // // The email of the user's account used.
+    // const email = error.customData.email;
+    // // The AuthCredential type that was used.
+    // const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
+    console.log(error)
   });
   }
 
@@ -75,5 +78,4 @@ function AuthPage({type}) {
   )
   
 }
-
 export default AuthPage
