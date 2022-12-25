@@ -1,14 +1,16 @@
-import React,{useEffect,useContext} from 'react'
+import React,{useEffect,useContext,useState} from 'react'
 import { Grid, TextField,Typography,Button,FormControl,Select,MenuItem,Box,Chip,OutlinedInput} from '@mui/material'
 import { useTheme } from '@mui/material/styles';
 import { getDoc, setDoc, doc } from "firebase/firestore";
 import { db } from '../../../firebaseConfig';
 import {useNavigate} from 'react-router-dom'
 import { ColorContext } from '../../../Context/DarkMode';
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage } from '../../../firebaseConfig';
 
 function CandidateProfile() {
   const [loading,setLoading]=React.useState(true)
-  const [state,dispatch]=useContext(ColorContext)
+  const [state,]=useContext(ColorContext)
   const [edit,setEdit]=React.useState(false)
   const navigate=useNavigate()
   const userData=JSON.parse(localStorage.getItem('user'))
@@ -76,17 +78,6 @@ function CandidateProfile() {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    // setUserInfo({
-    //   name:userData?userData.displayName?userData.displayName:'':'',
-    //   email:userData?userData.email?userData.email:'':'',
-    //   phone:'',
-    //   companyName:'',
-    //   companyWebsite:'',
-    //   companySize:'',
-    //   companyAddress:'',
-    //   hrEmail:'',
-    //   industry:''
-    // })
   }
   async function fetchUserInfo(){
     const docRef = doc(db, "userData", userData.uid);
@@ -103,11 +94,45 @@ function CandidateProfile() {
   useEffect(() =>{
     fetchUserInfo()
     },[])
+
+  const [pdfUrl, setPdfUrl] = useState(null);
+  const [progresspercent, setProgresspercent] = useState(0);  
+  const submitFile=(e)=>{
+    e.preventDefault()
+    const file = e.target[0]?.files[0]
+    console.log(e,file)
+    if (!file) return;
+    const storageRef = ref(storage, `resume/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed",
+      (snapshot) => {
+        const progress =
+          Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        setProgresspercent(progress);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setPdfUrl(downloadURL)
+          setUserInfo({
+            ...userInfo,
+            resume:downloadURL
+          })
+          setProgresspercent(0)
+          alert('Save to make final changes')
+        });
+      }
+    );
+  }
   return (
     <div style={{color:state.darkMode?'white':
     'black' ,backgroundColor:state.darkMode?'darkgray':'#F2F2F2',margin:'0'}}>
-      {loading?'Loading...':<form>
-      <h1 style={{padding:'10px',margin:'0'}}>Candidate Profile</h1>
+      {loading?'Loading...':
+      <div>
+      <h1 style={{padding:'10px',margin:'0',fontWeight:300}}>Candidate Profile</h1>
       <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',backgroundColor:state.darkMode?'gray':'#F6F7FC',
       borderRadius: '5px',
       boxShadow: '3px 2px 5px 3px rgb(211,211,211),-3px -2px 5px 3px rgb(211,211,211)'
@@ -182,6 +207,20 @@ function CandidateProfile() {
             </Select>
           </FormControl>
         </Grid>
+        <Grid item xs={6} sx={{color:state.darkMode?'white':'black' }}>
+          {edit?
+          <form onSubmit={e=>{submitFile(e)}}>
+            <input type="file" accept='application/pdf'/>
+            {progresspercent>0 && progresspercent<=100?
+            <div>{progresspercent}%
+            </div>:
+            <Button type='submit'  sx={{color:state.darkMode?'white':'black' }}>Upload</Button>
+            }
+          </form>:
+          (userInfo.resume?
+           <Button onClick={()=>window.open(userInfo.resume,'_blank')}  sx={{color:state.darkMode?'white':'black' }}>View Resume</Button>:
+           <Button onClick={()=>setEdit(true)} sx={{color:state.darkMode?'white':'black'}}>Upload Resume</Button>)}
+        </Grid>
         <Grid item xs={12} sm={12}>
           {!edit?<Button variant='contained' onClick={()=>setEdit(true)}>Edit</Button>:
           <div style={{"display":"flex","justifyContent":"center","gap":"20px"}}>
@@ -190,7 +229,7 @@ function CandidateProfile() {
           </div>}
         </Grid>
       </Grid>
-    </form>}
+    </div>}
     </div>
   )
 }

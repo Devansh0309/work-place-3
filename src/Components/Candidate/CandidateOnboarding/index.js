@@ -72,20 +72,9 @@ function CandidateOnboarding() {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    // setUserInfo({
-    //   name:userData?userData.displayName?userData.displayName:'':'',
-    //   email:userData?userData.email?userData.email:'':'',
-    //   phone:'',
-    //   companyName:'',
-    //   companyWebsite:'',
-    //   companySize:'',
-    //   companyAddress:'',
-    //   hrEmail:'',
-    //   industry:''
-    // })
   }
   return (
-    <form onSubmit={submitUserInfo}>
+    <form onSubmit={(e)=>submitUserInfo(e)}>
       <h1>Candidate Onboarding</h1>
       <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',backgroundColor:'#fff',
       borderRadius: '5px',
@@ -118,7 +107,6 @@ function CandidateOnboarding() {
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <Typography variant='h6'>Domain</Typography>
-            {/* <InputLabel id="demo-simple-select-label">Domain</InputLabel> */}
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -131,10 +119,7 @@ function CandidateOnboarding() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography variant='h6'>Skills</Typography>
-          {/* <TextField variant='outlined' fullWidth
-          value={userInfo.skills} onChange={e=>{setUserInfo({...userInfo,skills:e.target.value})}}/> */}
           <FormControl sx={{ m: 1, width: 300 }}>
-        {/* <InputLabel id="demo-multiple-chip-label">Chip</InputLabel> */}
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"

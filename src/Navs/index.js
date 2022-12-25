@@ -7,12 +7,6 @@
 // employerProfile page "/employerProfile"
 // candidateProfile page "/candidateProfile"
 // empoyerJobs page "/employerJobs"
-// candidateJobs page "/candidateJobs"
-// application page "/application"
-// applicants page "/applicants"
-// employerConversation page "/employerConversation"
-// candidateConversation page "/candidateConversation"
-// }
 import {
   Routes,
   Route,
@@ -41,34 +35,36 @@ function Navs() {
   const [state,]=useContext(UserContext)
 
   const CandidateProtectedRoutes = () => {
-    
-    // ("a" === "a")
     if (state.userInfo && state.userInfo.type==='candidate') {
-      console.log('hi')
       return <Outlet />;
-    } else {
-      console.log('ni')
+    } 
+    else if(state.user && !state.userInfo){
+      return <Outlet />;
+    }
+    else {
       return <Navigate to="/" />;
     }
   };
 
   const EmployerProtectedRoutes = () => {
     if (state.userInfo && state.userInfo.type==='employer'){
-      console.log('hi')
       return <Outlet />;
-    } else {
-      console.log('ni')
+    } 
+    else if(state.user && !state.userInfo){
+      return <Outlet />;
+    }
+    else {
       return <Navigate to="/" />;
     }
   }
 
-  return (
+  return(
     <BrowserRouter>
       <Routes>
-        
         <Route path="/" element={<LandingPage />} />
         <Route path="/candidate/auth" element={<AuthPage type='candidate'/>} />
         <Route path="/employer/auth" element={<AuthPage type='employer'/>} />
+
         <Route element={<CandidateProtectedRoutes />}>
           <Route path="/candidate/onboarding" element={<CandidateOnboarding />}/>
           <Route path="candidate/profile" element={<CandidateHoc><CandidateProfile /></CandidateHoc>} />

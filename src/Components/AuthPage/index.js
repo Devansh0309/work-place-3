@@ -13,45 +13,32 @@ function AuthPage({type}) {
   const signIn=()=>{
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-  .then(async(result) => {
+    .then(async(result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
     // const credential = GoogleAuthProvider.credentialFromResult(result);
     // const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    // localStorage.setItem('user',JSON.stringify(user))
     dispatch({type:'SET_USER',payload:user})
     // console.log(user)
     const docRef = doc(db, "userData", user.uid);
     const docSnap = await getDoc(docRef);
-    // if (docSnap.exists()) {
-    //   console.log("Document data:", docSnap.data());
-    // } else {
-    //   // doc.data() will be undefined in this case
-    //   console.log("No such document!");
-    // }
-    
     const userData=docSnap.data()
     console.log(type+''+userData)
     if(userData && userData.type===type){
-      // localStorage.setItem('userInfo',JSON.stringify(docSnap.data()))
       dispatch({type:'SET_USER_INFO',payload:userData})
       //profile
-      // setTimeout(()=>{navigate(`/${type}/profile`)},1000)
-      navigate(`/${type}/profile`)
+      setTimeout(()=>{navigate(`/${type}/profile`)},2000)
     }
     else if(userData && userData.type!==type){
       //invalid access  or invalid type user accessing
       alert(`Invalid access as you are trying to signIn as ${type} but you onboarded as ${userData.type} using this email`)
     }
     else{
-      
       //onBoarding
       console.log(type+''+userData)
-      setTimeout(()=>{navigate(`/${type}/onboarding`)},2000)
-      // navigate(`/${type}/onboarding`)
+      navigate(`/${type}/onboarding`)
     }
-    // ...
   }).catch((error) => {
     // // Handle Errors here.
     // const errorCode = error.code;
@@ -60,11 +47,9 @@ function AuthPage({type}) {
     // const email = error.customData.email;
     // // The AuthCredential type that was used.
     // const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
     console.log(error)
   });
   }
-
   return(
     <div className='auth-container'>
       <h1>Welcome {type}</h1>
@@ -76,6 +61,5 @@ function AuthPage({type}) {
       </button>
     </div>
   )
-  
 }
 export default AuthPage

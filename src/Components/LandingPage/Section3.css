@@ -49,11 +49,12 @@
 .section3-card-svg img{
     height:100%;
     width:100%;
-    border-radius: 50%;
+    border-radius: 5px;
 }
 .section3-card-heading{
     height:100%;
     width:65%;
+    font-weight: 400;
 }
 .section3-card-middle{
     height:60%;

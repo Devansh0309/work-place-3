@@ -11,13 +11,13 @@ function Section3Card({key,icon,job,company,jobDescription,salary,time}) {
             <div className='section3-card-svg'>
                 <img src={icon} alt="not found"/>
             </div>
-            <h4 className='section3-card-heading'>
+            <h3 className='section3-card-heading'>
                 {company}
-            </h4>
+            </h3>
         </div>
         <div className='section3-card-middle'>
-            <h2 style={{margin:'0'}}>{job}</h2>
-            <h6 style={{margin:'0'}}>{time}</h6>
+            <h2 style={{margin:'0',fontWeight:400}}>{job}</h2>
+            <h6 style={{margin:'0',fontWeight:300}}>{time}</h6>
             <p>{jobDescription}</p>
         </div>
         <div className='section3-card-bottom'>

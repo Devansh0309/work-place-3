@@ -10,13 +10,11 @@ function reducer(state, action) {
         case 'Dark':
             localStorage.setItem('mode',JSON.stringify(true))
             return{
-                ...state,
                 darkMode:true
             }
         case 'Light':
             localStorage.setItem('mode',JSON.stringify(false))
             return{
-                ...state,
                 darkMode:false
             }
         default:

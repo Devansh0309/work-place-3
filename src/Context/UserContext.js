@@ -16,7 +16,6 @@ function reducer(state, action){
         case 'SET_USER_INFO':
             localStorage.setItem('userInfo',JSON.stringify(action.payload))
             return{
-                ...state,
                 userInfo:action.payload
             }
         default:
