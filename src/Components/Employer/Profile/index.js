@@ -35,17 +35,6 @@ function EmployerProfile() {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    // setUserInfo({
-    //   name:userData?userData.displayName?userData.displayName:'':'',
-    //   email:userData?userData.email?userData.email:'':'',
-    //   phone:'',
-    //   companyName:'',
-    //   companyWebsite:'',
-    //   companySize:'',
-    //   companyAddress:'',
-    //   hrEmail:'',
-    //   industry:''
-    // })
   }
   async function fetchUserInfo(){
     const docRef = doc(db, "userData", userData.uid);
@@ -55,7 +44,6 @@ function EmployerProfile() {
       setUserInfo(docSnap.data())
       setLoading(false)
     } else {
-      // doc.data() will be undefined in this case
       console.log("No such document!");
     }
   }
@@ -63,9 +51,10 @@ function EmployerProfile() {
     fetchUserInfo()
     },[])
   return (
-    <div style={{backgroundColor:state.darkMode?'darkgray':'#F2F2F2'}}>
+    <div style={{color:state.darkMode?'white':
+    'black' ,backgroundColor:state.darkMode?'darkgray':'#F2F2F2'}}>
       {loading?"Loading...":<form>
-      <h1 style={{padding:'10px',margin:'0'}}>Employer Profile</h1>
+      <h1 style={{padding:'10px',margin:'0',fontWeight:'400'}}>Employer Profile</h1>
       <Grid container spacing={2} sx={{padding:'10px',maxWidth:'95%',margin:'20px auto',color:state.darkMode?'#F6F7FC':'black',backgroundColor:state.darkMode?'gray':'#F6F7FC',
       borderRadius: '5px',
       boxShadow: '3px 2px 5px 3px rgb(211,211,211),-3px -2px 5px 3px rgb(211,211,211)'

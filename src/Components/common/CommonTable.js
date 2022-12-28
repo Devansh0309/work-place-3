@@ -71,10 +71,15 @@ export default function CommonTable({data //array of objects
             <StyledTableRow key={i} sx={{opacity:(type==='candidate'?'1':row.status==='Approved'?'0.4':'1'),pointerEvents:(row.status==='Approved'?'none':'unset')}}>
               {columnsName.map((item)=>{
                 if(item.key==='buttons'){
-                  return <div>
+                  return <StyledTableCell>
                   <Button onClick={(e)=>{handleClick('accept',row)}}>Accept</Button>
                   <Button onClick={()=>{handleClick('reject',row)}}>Decline</Button>
-                  </div>
+                  </StyledTableCell>
+                }
+                else if(item.key==='resume'){
+                  return <StyledTableCell><Button onClick={()=>{
+                    window.open(row[item.key],'_blank')
+                  }}>View Resume</Button></StyledTableCell>
                 }
                 else{
                   return <StyledTableCell>{row[item.key]}</StyledTableCell>

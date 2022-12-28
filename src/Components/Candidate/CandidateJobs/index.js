@@ -3,12 +3,15 @@ import { collection, query, where, onSnapshot, setDoc, doc, getDoc, getDocs} fro
 import {db} from '../../../firebaseConfig';
 import { Grid, Button } from '@mui/material';
 import { v4 as uuidv4 } from "uuid";
+import { DockSharp } from '@mui/icons-material';
 
 function CandidateJobs() {
   const [allJobs,setAllJobs]=useState(null)
+  const [resumeUrl,setResumeUrl]=useState()
   const userInfo=JSON.parse(localStorage.getItem('user'))
   const candidateId=userInfo.uid
   const fetchJobs = async()=>{
+    console.log('Inside fetch Jobs')
     const q = await query(collection(db, "jobsData"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const jobs = [];
@@ -18,10 +21,27 @@ function CandidateJobs() {
     setAllJobs(jobs)
     });
   }
+  const fetchResume = async()=>{
+    console.log('Inside fetch Resume')
+    const q=query(collection(db, "userData"),where('email','==',userInfo.email))
+    const querySnapshot = await getDocs(q)
+    // console.log(querySnapshot)
+    // let count=0;
+    querySnapshot.forEach((doc) => {
+      setResumeUrl(doc.data().resume)
+    })
+    // console.log(count)
+    // const unsubscribe = onSnapshot(q, (doc) => {
+    //   console.log(doc)///////See it* to add resume section in applications collection of db
+    //   // setResume(querySnapshot)
+    // });
+  }
 
   useEffect(()=>{
     fetchJobs()
   },[])
+
+  useEffect(()=>{fetchResume()},[])
 
   const applyForJob=async(job,e) => {
     //application id
@@ -63,7 +83,7 @@ function CandidateJobs() {
           candidateName:userInfo.displayName,
           companyName:job.employerName,
           candidateEmail:userInfo.email,
-          // candidateExperience:userInfo.experience
+          resume:resumeUrl
         });
       alert("Applied for job successfully")
       

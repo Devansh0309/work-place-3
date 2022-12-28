@@ -9,9 +9,10 @@ const columnName=[
   {title:'Candidate',key:'candidateName'},
   {title:'Job title', key:'title'},
   {title:'Job location',key:'location'},
-  {title:'status',key:'status'},
+  {title:'Status',key:'status'},
   {title:'Email',key:'candidateEmail'},
-  {title:'actions',key:'buttons'}
+  {title:'Actions',key:'buttons'},
+  {title:'Resume',key:'resume'}
   // {title:'Experience',key:'candidateExperience'}
   
   // {title:'applied on',key:'createdAt'}

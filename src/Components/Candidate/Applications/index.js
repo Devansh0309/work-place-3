@@ -7,8 +7,9 @@ const columnName=[
   {title:'Company',key:'companyName'},
   {title:'Job title', key:'title'},
   {title:'Job location',key:'location'},
-  {title:'status',key:'status'},
-  {title:'Name',key:'candidateName'}
+  {title:'Status',key:'status'},
+  {title:'Name',key:'candidateName'},
+  {title:'Resume',key:'resume'}
   
   // {title:'applied on',key:'createdAt'}
 ]
