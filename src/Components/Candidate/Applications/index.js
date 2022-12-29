@@ -33,9 +33,6 @@ function Applications() {
     <div>
       {allApplications && allApplications.length>0?
       <div>
-       {/* {allApplications.map((application)=>{
-         application.title
-      })} */}
       <CommonTable data={allApplications} columnsName={columnName} type={'candidate'}/>
       </div>:
       allApplications && allApplications.length===0?

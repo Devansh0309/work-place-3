@@ -1,14 +1,14 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { Grid,Button, TextField, FormControl, Select,MenuItem, Box, Chip, OutlinedInput, Typography} from '@mui/material'
 import { useTheme } from '@mui/material/styles';
 import { v4 as uuidv4 } from "uuid";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from '../../../../firebaseConfig';
 
+
 function JobForm({postAjob,jobData,setJobData}){
   const userInfo=JSON.parse(localStorage.getItem('user'))
   
-  // const [edit,setEdit]=React.useState(true)
   const skills = [
     'HTML',
     'CSS',
@@ -75,10 +75,11 @@ function JobForm({postAjob,jobData,setJobData}){
   }
   return (
     <div>
-      {postAjob?(<form  onSubmit={(e)=>{submitJob(e)}}>
+      {postAjob?
+      (<form  onSubmit={(e)=>{submitJob(e)}}  >
       <Grid container spacing={2}>
           <Grid item xs={12} sm={12}>
-            <h1>JobForm</h1>
+            <h1 style={{fontWeight:'300'}}>JobForm</h1>
           </Grid>
           <Grid item xs={12} sm={6}>
             <label >Job Title</label>
@@ -175,7 +176,8 @@ function JobForm({postAjob,jobData,setJobData}){
               </Select>
             </FormControl>
           </Grid>
-      </Grid><Button type='submit' variant='contained' color='primary'>Submit</Button>
+      </Grid>
+      <Button type='submit' variant='contained' color='primary'>Submit</Button>
       </form>):
       <div>
         Please select a job

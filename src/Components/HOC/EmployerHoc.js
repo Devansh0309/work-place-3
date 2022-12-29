@@ -8,12 +8,10 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import { Switch } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -66,7 +64,7 @@ function EmployerHoc({children}) {
   return (
     <>
     <Box sx={{display:{xs:'none',md:'block'},}}>
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl"  sx={{backgroundColor:state.darkMode?'dimgrey':'#fff',}}>
         <Toolbar disableGutters>
           <Typography

@@ -7,7 +7,7 @@ import UserContextProvider from './Context/UserContext';
 function App(){
   // const [darkModeOn,setDarkModeOn]=React.useState(false)
   return(
-    <div className="App">
+    <div className="App" style={{minWidth:'100vw'}}>
       <UserContextProvider>
         <DarkModeContext>
           <Navs/>

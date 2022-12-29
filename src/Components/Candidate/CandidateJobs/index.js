@@ -1,13 +1,16 @@
-import React,{useEffect,useState} from 'react'
-import { collection, query, where, onSnapshot, setDoc, doc, getDoc, getDocs} from "firebase/firestore";
+import React,{useEffect,useState,useContext} from 'react'
+import { collection, query, where, onSnapshot, setDoc, doc, getDocs} from "firebase/firestore";
 import {db} from '../../../firebaseConfig';
 import { Grid, Button } from '@mui/material';
 import { v4 as uuidv4 } from "uuid";
-import { DockSharp } from '@mui/icons-material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { ColorContext } from '../../../Context/DarkMode';
+import { height } from '@mui/system';
 
 function CandidateJobs() {
   const [allJobs,setAllJobs]=useState(null)
   const [resumeUrl,setResumeUrl]=useState()
+  const [state]=useContext(ColorContext)
   const userInfo=JSON.parse(localStorage.getItem('user'))
   const candidateId=userInfo.uid
   const fetchJobs = async()=>{
@@ -25,16 +28,9 @@ function CandidateJobs() {
     console.log('Inside fetch Resume')
     const q=query(collection(db, "userData"),where('email','==',userInfo.email))
     const querySnapshot = await getDocs(q)
-    // console.log(querySnapshot)
-    // let count=0;
     querySnapshot.forEach((doc) => {
       setResumeUrl(doc.data().resume)
     })
-    // console.log(count)
-    // const unsubscribe = onSnapshot(q, (doc) => {
-    //   console.log(doc)///////See it* to add resume section in applications collection of db
-    //   // setResume(querySnapshot)
-    // });
   }
 
   useEffect(()=>{
@@ -56,7 +52,7 @@ function CandidateJobs() {
     //fetch the applications with candidate id
     //if job id is present in the applications then show alert: already applied
     //else apply for the job
-    const q= await query(collection(db, "applications"),where('candidateId','==',candidateId));
+    const q =await query(collection(db, "applications"),where('candidateId','==',candidateId));
     let data=[]
     const querySnapshot=getDocs(q)
     ;(await querySnapshot).forEach((doc)=>{
@@ -86,8 +82,6 @@ function CandidateJobs() {
           resume:resumeUrl
         });
       alert("Applied for job successfully")
-      
-      // navigate('/candidate/application')
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -97,35 +91,44 @@ function CandidateJobs() {
   return (
     <div>
       {allJobs && allJobs.length>0?
-      <div style={{}}>
-        {allJobs.map((job)=>{ return <div>
+      <div style={{height:'auto'}}>
+      <h1 style={{margin:'0 auto',padding:'10px',fontWeight:'400',color:state.darkMode?'white':
+    'black' ,backgroundColor:state.darkMode?'darkgray':'#F2F2F2'}}>Search for jobs</h1>
+      <div style={{paddingTop:'15px',display:'flex',flexDirection:'column',gap:'20px',color:state.darkMode?'white':
+      'black' ,backgroundColor:state.darkMode?'darkgray':'#F2F2F2'}}>
+        {allJobs.map((job)=>{
+          return <div>
           <Grid container sx={{maxWidth:'600px',width:'90%',margin:'auto',alignItems:'center',display:'flex',boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',borderRadius: '10px'}}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} sx={{fontWeight:'350',fontSize:'30px',textAlign:'left',paddingLeft:'40px'}}>
               {job.title}
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6}  sx={{fontWeight:'300',fontSize:'15px',textAlign:'right',paddingRight:'20px'}}>
+            <LocationOnIcon/>
               {job.location}
             </Grid>
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={12} sm={12} sx={{textAlign:'left',paddingLeft:'40px'}}>
               {job.description}
             </Grid>
-            <Grid item xs={12} sm={12}>
-              <label for="">Skills</label>
-              <div style={{display:'flex',gap:'10px'}}>
+            <Grid container sx={{border:'0.02px solid grey', borderRadius:'5px',width:'90%',margin:'10px auto',alignItems:'center'}}>
+            <Grid item xs={12} sm={9}>
+              <div style={{fontWeight:'400',textAlign:'left',display:'inline-block'}}>Skills: </div>
+              <span style={{display:"inline-flex",gap:'10px',fontWeight:'50'}}>
               {
                 job.skills.map((skill)=>{
                   return <div>{skill}</div>
                 })
               }
-              </div>
+              </span>
             </Grid>
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={12} sm={3}>
               <Button variant='contained'
-              onClick={(e)=>{applyForJob(job,e)}}>Apply</Button>
+              onClick={(e)=>{applyForJob(job,e)}} >Apply</Button>
+            </Grid>
             </Grid>
           </Grid>
           
         </div>})}
+      </div>
       </div>:
       allJobs && allJobs.length===0?
       <div>

@@ -10,7 +10,7 @@ function Section2() {
   {key:3,image:Horn,job:'Marketing & Communication',jobsAvailable:'265'},
   {key:4,image:Horn,job:'Marketing & Communication',jobsAvailable:'265'}
   ];
-  const [state,dispatch]=useContext(ColorContext)
+  const [state,]=useContext(ColorContext)
   return (
     <div className='section2-container' 
     style={{color:state.darkMode?'white':'black',backgroundColor:state.darkMode?'darkgrey':'#F6F7FC'}}

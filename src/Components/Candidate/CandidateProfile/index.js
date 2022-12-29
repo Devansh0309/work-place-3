@@ -1,5 +1,5 @@
 import React,{useEffect,useContext,useState} from 'react'
-import { Grid, TextField,Typography,Button,FormControl,Select,MenuItem,Box,Chip,OutlinedInput} from '@mui/material'
+import { Grid, TextField,Button,FormControl,Select,MenuItem,Box,Chip,OutlinedInput,InputLabel} from '@mui/material'
 import { useTheme } from '@mui/material/styles';
 import { getDoc, setDoc, doc } from "firebase/firestore";
 import { db } from '../../../firebaseConfig';
@@ -138,36 +138,47 @@ function CandidateProfile() {
       boxShadow: '3px 2px 5px 3px rgb(211,211,211),-3px -2px 5px 3px rgb(211,211,211)'
     }}>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Name</Typography>
-          <TextField disabled={!edit} variant='outlined' required fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Name"
+          multiline
+          maxRows={4} disabled={!edit} variant='outlined' required fullWidth
           value={userInfo.name} onChange={e=>{setUserInfo({...userInfo,name:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Email</Typography>
-          <TextField disabled  type='email' required variant='outlined' fullWidth value={userInfo.email} onChange={e=>{setUserInfo({...userInfo,email:e.target.value})}}/>
+          <TextField id="outlined-multiline-flexible"
+          label="Email"
+          multiline
+          maxRows={4} disabled  type='email' required variant='outlined' fullWidth value={userInfo.email} onChange={e=>{setUserInfo({...userInfo,email:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Phone No</Typography>
-          <TextField disabled={!edit}  type='number' variant='outlined' fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Phone No"
+          multiline
+          maxRows={4} disabled={!edit}  type='number' variant='outlined' fullWidth
           value={userInfo.phone} onChange={e=>{setUserInfo({...userInfo,phone:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Education</Typography>
-          <TextField disabled={!edit} variant='outlined' fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Education"
+          multiline
+          maxRows={4} disabled={!edit} variant='outlined' fullWidth
           value={userInfo.education} onChange={e=>{setUserInfo({...userInfo,education:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Experience</Typography>
-          <TextField disabled={!edit} variant='outlined' fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Experience"
+          multiline
+          maxRows={4} disabled={!edit} variant='outlined' fullWidth
           value={userInfo.experience} onChange={e=>{setUserInfo({...userInfo,experience:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <Typography variant='h6'>Domain</Typography>
+            <InputLabel id="demo-simple-select-label">Domain</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               required
+              input={<OutlinedInput id="select-simple" label='Domain'/>}
               disabled={!edit}
               value={userInfo.domain}
               onChange={e=>{setUserInfo({...userInfo,domain:e.target.value})}}>
@@ -176,8 +187,8 @@ function CandidateProfile() {
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Skills</Typography>
           <FormControl sx={{ m: 1, width: 300 }}>
+          <InputLabel id="demo-multiple-chip-label">Skills</InputLabel>
             <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
@@ -186,7 +197,7 @@ function CandidateProfile() {
           disabled={!edit}
           value={userInfo.skills}
           onChange={handleSkillsChange}
-          input={<OutlinedInput id="select-multiple-chip"/>}
+          input={<OutlinedInput id="select-multiple-chip" label='Skills'/>}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (

@@ -1,5 +1,5 @@
 import React,{useEffect,useContext } from 'react'
-import { Grid, TextField,Typography,Button,FormControl,Select,MenuItem} from '@mui/material'
+import { Grid, TextField,Button,FormControl,Select,MenuItem,OutlinedInput,InputLabel} from '@mui/material'
 import { getDoc, setDoc, doc } from "firebase/firestore";
 import { db } from '../../../firebaseConfig';
 import {useNavigate} from 'react-router-dom'
@@ -7,7 +7,7 @@ import { ColorContext } from '../../../Context/DarkMode';
 
 function EmployerProfile() {
   const navigate=useNavigate()
-  const [state,dispatch]=useContext(ColorContext)
+  const [state]=useContext(ColorContext)
   const [edit,setEdit]=React.useState(false)
   const [loading,setLoading]=React.useState(true)
   const userData=JSON.parse(localStorage.getItem('user'))
@@ -60,46 +60,61 @@ function EmployerProfile() {
       boxShadow: '3px 2px 5px 3px rgb(211,211,211),-3px -2px 5px 3px rgb(211,211,211)'
     }}>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Name</Typography>
-          <TextField  disabled={!edit}variant='outlined' required fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Name"
+          multiline
+          maxRows={4}  disabled={!edit}variant='outlined' required fullWidth
           value={userInfo.name} onChange={e=>{setUserInfo({...userInfo,name:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography  variant='h6'>Email</Typography>
-          <TextField disabled  type='email' required variant='outlined' fullWidth value={userInfo.email} onChange={e=>{setUserInfo({...userInfo,email:e.target.value})}}/>
+          <TextField id="outlined-multiline-flexible"
+          label="Email"
+          multiline
+          maxRows={4} disabled  type='email' required variant='outlined' fullWidth value={userInfo.email} onChange={e=>{setUserInfo({...userInfo,email:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Phone No</Typography>
-          <TextField disabled={!edit} type='number' variant='outlined' fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Phone No"
+          multiline
+          maxRows={4} disabled={!edit} type='number' variant='outlined' fullWidth
           value={userInfo.phone} onChange={e=>{setUserInfo({...userInfo,phone:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Company Name</Typography>
-          <TextField disabled={!edit}  variant='outlined' fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Company Name"
+          multiline
+          maxRows={4} disabled={!edit}  variant='outlined' fullWidth
           value={userInfo.companyName} onChange={e=>{setUserInfo({...userInfo,companyName:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Company Website</Typography>
-          <TextField disabled={!edit}  required variant='outlined' fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Company Website"
+          multiline
+          maxRows={4} disabled={!edit}  required variant='outlined' fullWidth
           value={userInfo.companyWebsite} onChange={e=>{setUserInfo({...userInfo,companyWebsite:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Company Size</Typography>
-          <TextField disabled={!edit}  type='number' variant='outlined' fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Company Website"
+          multiline
+          maxRows={4} disabled={!edit}  type='number' variant='outlined' fullWidth
           value={userInfo.companySize} onChange={e=>{setUserInfo({...userInfo,companySize:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>Company Address</Typography>
-          <TextField disabled={!edit}  variant='outlined' fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="Company Address"
+          multiline
+          maxRows={4} disabled={!edit}  variant='outlined' fullWidth
           value={userInfo.companyAddress} onChange={e=>{setUserInfo({...userInfo,companyAddress:e.target.value})}}/>
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
-            <Typography variant='h6'>Industry</Typography>
+            <InputLabel id="demo-simple-select-label">Industry</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               required
+              input={<OutlinedInput id="select-simple" label='Industry'/>}
               disabled={!edit} 
               value={userInfo.industry}
               onChange={e=>{setUserInfo({...userInfo,industry:e.target.value})}}>
@@ -108,13 +123,16 @@ function EmployerProfile() {
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Typography variant='h6'>HR Email</Typography>
-          <TextField type='email' disabled={!edit}  required variant='outlined' fullWidth
+          <TextField id="outlined-multiline-flexible"
+          label="HR Email"
+          multiline
+          maxRows={4} type='email' disabled={!edit}  required variant='outlined' fullWidth
           value={userInfo.hrEmail} onChange={e=>{setUserInfo({...userInfo,hrEmail:e.target.value})}}/>
         </Grid>
 
         <Grid item xs={12} sm={12}>
-          {!edit?<Button variant='contained' onClick={()=>setEdit(true)}>Edit</Button>:<div>
+          {!edit?<Button variant='contained' onClick={()=>setEdit(true)}>Edit</Button>:
+          <div style={{"display":"flex","justifyContent":"center","gap":"20px"}}>
           <Button variant='contained' onClick={(e)=>{setEdit(false);saveUserInfo(e)}}>Save</Button>
           <Button variant='contained' onClick={()=>setEdit(false)}>Cancel</Button>
           </div>}

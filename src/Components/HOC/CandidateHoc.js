@@ -67,7 +67,7 @@ function CandidateHoc({children}) {
   return (
     <>
     <Box sx={{display:{xs:'none',md:'block'}}}>
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl" sx={{backgroundColor:state.darkMode?'dimgrey':'#fff',}}>
         <Toolbar disableGutters>
           <Typography

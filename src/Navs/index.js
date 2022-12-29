@@ -67,18 +67,18 @@ function Navs() {
 
         <Route element={<CandidateProtectedRoutes />}>
           <Route path="/candidate/onboarding" element={<CandidateOnboarding />}/>
-          <Route path="candidate/profile" element={<CandidateHoc><CandidateProfile /></CandidateHoc>} />
-          <Route path="candidate/jobs" element={<CandidateHoc><CandidateJobs /></CandidateHoc>} />
-          <Route path="candidate/conversation" element={<CandidateHoc><CandidateConversation /></CandidateHoc>}/>
-          <Route path="candidate/application" element={<CandidateHoc><Applications/></CandidateHoc>} />
+          <Route path="candidate/profile" element={<CandidateHoc><br/><br/><br/><CandidateProfile /></CandidateHoc>} />
+          <Route path="candidate/jobs" element={<CandidateHoc><br/><br/><br/><CandidateJobs /></CandidateHoc>} />
+          <Route path="candidate/conversation" element={<CandidateHoc><br/><br/><br/><CandidateConversation /></CandidateHoc>}/>
+          <Route path="candidate/application" element={<CandidateHoc><br/><br/><br/><Applications/></CandidateHoc>} />
         </Route>
 
         <Route element={<EmployerProtectedRoutes />}>
           <Route path="/employer/onboarding" element={<EmployerOnboarding />} />
-          <Route path="employer/profile" element={<EmployerHoc><EmployerProfile /></EmployerHoc>} />
-          <Route path="employer/jobs" element={<EmployerHoc><EmployerJobs /></EmployerHoc>} />
-          <Route path="employer/conversation" element={<EmployerHoc><EmployerConversation /></EmployerHoc>}/>
-          <Route path="employer/applicants" element={<EmployerHoc><Applicants /></EmployerHoc>} />
+          <Route path="employer/profile" element={<EmployerHoc><br/><br/><br/><EmployerProfile /></EmployerHoc>} />
+          <Route path="employer/jobs" element={<EmployerHoc><br/><br/><br/><EmployerJobs /></EmployerHoc>} />
+          <Route path="employer/conversation" element={<EmployerHoc><br/><br/><br/><EmployerConversation /></EmployerHoc>}/>
+          <Route path="employer/applicants" element={<EmployerHoc><br/><br/><br/><Applicants /></EmployerHoc>} />
         </Route>
 
       </Routes>

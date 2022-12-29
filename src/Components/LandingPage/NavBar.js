@@ -8,11 +8,9 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-// import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import Logo from '../../assets/logo2.png'
 import "./NavBar.css";
 import { ColorContext } from "../../Context/DarkMode";
@@ -47,7 +45,7 @@ function NavBar() {
   const [state,dispatch]=useContext(ColorContext)
   
   return (
-    <AppBar className="nav-container" position="static">
+    <AppBar className="nav-container" position="fixed">
       <Container maxWidth="xl" sx={{color:state.darkMode?'#fff':'black',
     backgroundColor:state.darkMode?'dimgrey':'#fff'}}>
         <Toolbar disableGutters>
