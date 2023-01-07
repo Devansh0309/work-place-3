@@ -14,7 +14,7 @@ function MessageArea({allConversations,postMessage}) {
               <div style={{overflowX:''}}>
                 {item.lastMessage}
               </div>
-              <div style={{textAlign:'right'}}>time</div>
+              <div style={{textAlign:'right'}}>{item.createdAt}</div>
             </div>
           )}
         </Grid>

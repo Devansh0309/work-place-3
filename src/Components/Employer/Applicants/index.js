@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react'
-import { collection, query, where, onSnapshot, setDoc, doc, getDoc, getDocs} from "firebase/firestore";
+import { collection, query, where, onSnapshot, setDoc, doc} from "firebase/firestore";
 import { db } from '../../../firebaseConfig';
 import CommonTable from '../../common/CommonTable';
-import { deleteDoc,updateDoc } from "firebase/firestore";
+import {updateDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 const columnName=[
@@ -29,7 +29,6 @@ function Applicants() {
     onSnapshot(q,(querySnapshot)=>{
       let data=[]
       querySnapshot.forEach((doc)=>{
-      //doc.data() is never undefined for querySnapshots
       data.push(doc.data())
       // console.log(data)
     })
@@ -52,13 +51,13 @@ function Applicants() {
       
       try{
         await setDoc(doc(db,'lastMessages',lastMessageId),{lastMessage:`Hey there We have accepted your application for ${row.title}`,
-        createdAt:new Date().getTime(),employerId:row.employerId,candidateId:row.candidateId,jobId:row.jobId,applicationId:row.applicationId,lastMessageId:lastMessageId,candidateName:row.candidateName,employerName:row.companyName,conversationId:`${row.employerId}-${row.candidateId}`})
+        createdAt:new Date().toLocaleString(),employerId:row.employerId,candidateId:row.candidateId,jobId:row.jobId,applicationId:row.applicationId,lastMessageId:lastMessageId,candidateName:row.candidateName,employerName:row.companyName,conversationId:`${row.employerId}-${row.candidateId}`})
         await setDoc(doc(db,'one-one-messages',oneToOneMessageId),{
           createdAt:new Date(),conversationId:`${row.employerId}-${row.candidateId}`,lastMessage:`Hey there We have accepted your application ${row.title}`,
           userId:userInfo.uid,userType:'employer'
           // ,employerId:row.employerId,
           // candidateId:row.candidateId
-          ,createdAt:new Date().getTime()
+          ,createdAt:new Date().toLocaleString()
         })
       }catch(err){
         console.log(err)
@@ -80,9 +79,6 @@ function Applicants() {
     <div>
       {allApplicants && allApplicants.length>0?
       <div>
-       {/* {allApplicants.map((applicants)=>{
-         applicants.title
-      })} */}
       <CommonTable data={allApplicants} columnsName={columnName} type={'employer'} handleClick={handleClick} />
       </div>:
       allApplicants && allApplicants.length===0?

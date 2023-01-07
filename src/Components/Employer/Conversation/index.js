@@ -26,6 +26,7 @@ function Conversation(){
     })
     setLastMessage(false)
   }
+  
   const fetchData=async()=>{
     const employerId=userInfo.uid
     const collect=collection(db, "lastMessages")
@@ -38,6 +39,7 @@ function Conversation(){
     setAllLastMessages(data)
     })
   }
+
   useEffect(()=>{
     fetchData()
   },[])
@@ -55,7 +57,7 @@ function Conversation(){
       })
       await setDoc(doc(db,'one-one-messages',oneToOneMessageId),{
         lastMessage:message,
-        createdAt:new Date().getTime(),
+        createdAt:new Date().toLocaleString(),
         conversationId:conversationId,
         userId:userInfo.uid,
         userType:'employer'

@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from '../../../../firebaseConfig';
 
-
 function JobForm({postAjob,jobData,setJobData}){
   const userInfo=JSON.parse(localStorage.getItem('user'))
   
